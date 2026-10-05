@@ -1,14 +1,14 @@
 import json
 import uuid
 
-from confluent_kafka import Producer
+from confluent_kafka import Consumer
 
-producer_config ={
+consumer_config ={
         # Act as the starting point for a Kafka client to discover the full set of alive servers in the cluster.
         'bootstrap.servers': 'localhost:9092',
 }
 
-producer = Producer(producer_config)
+consumer = Consumer(consumer_config)
 
 def delivery_report(err,msg):
     """ Called once for each message produced to indicate delivery result."""
@@ -31,11 +31,10 @@ order = {
 #Convert order object to Kafka data object
 order_value = json.dumps(order).encode("utf-8")
 
-producer.produce(
+consumer.consume(
     "orders",
     key=order["order_id"],
     value=order_value,
     callback = delivery_report
 )
-producer.flush() # Wait until pending events are delivered to Kafka
 

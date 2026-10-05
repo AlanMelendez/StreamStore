@@ -23,9 +23,9 @@ def delivery_report(err,msg):
 
 order = {
     "order_id": str(uuid.uuid4()),
-    "user": "nana",
-    "item": "Cheese pizza",
-    "quantity": 2,
+    "user": "Nicole",
+    "item": "Chicken bowl",
+    "quantity": 1,
 }
 
 #Convert order object to Kafka data object
